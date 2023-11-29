@@ -6,53 +6,48 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:41:33 by ade-beco          #+#    #+#             */
-/*   Updated: 2023/11/29 12:07:12 by ade-beco         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:32:44 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-t_list	*ft_printline(t_list *stash) 
-{
-	char	temp;
-
-	while (stash->content != '\n')
-	{
-		temp = stash->content;
-		write(1, &temp, 1);
-		stash = stash->next;
-	}
-	return (stash->next);
-}
+#include <stdlib.h>
 
 char	*get_next_line(int fd)
 {
-	t_list	*stash;
-	char	buf[BUFFER_SIZE];
-	int		rdl;
-	int		i;
-	int		s;
+	char			*stash;
+	char			buf[BUFFER_SIZE + 1];
+	int				rdl;
+	int				i;
+	unsigned int	j;
+	unsigned int	rdls;
 
-	i = 0;
-	s = 0;
-	while (!s)
+	i = BUFFER_SIZE;
+	j = 0;
+	rdls = 0;
+	while (j == rdls)
 	{
+		i = 0;
 		rdl = read(fd, buf, BUFFER_SIZE);
-		while (i <= BUFFER_SIZE)
-		{
-			ft_addback(&stash, buf[i]);
-			if (buf[i] == '\n')
-			{
-				stash = ft_printline(stash);
-				s = 1;
-			}
+		if ((!rdls && !rdl) || rdl == -1)
+			return (NULL);
+		if (!rdl)
+			break ;
+		rdls += rdl;
+		printf("buf : %s\n", buf);
+		printf("rdl : %i\n", rdl);
+		printf("rdls : %i\n", rdls);
+		while (i < BUFFER_SIZE && buf[i] != '\n')
 			i++;
-		}
+		printf("i : %i\n", i);
+		j = rdls - (BUFFER_SIZE - i);
+		if (rdls != BUFFER_SIZE)
+			stash = ft_strjoin(stash, buf);
+		else
+			stash = ft_strdup(buf);
 	}
+	ft_putstr(stash, j);
 	close(fd);
-}
-
-int	main(get_next_line)
-{
-	get_next_line("test.txt");
+	return (stash);
 }

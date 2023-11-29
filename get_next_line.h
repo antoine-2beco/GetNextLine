@@ -6,7 +6,7 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:41:42 by ade-beco          #+#    #+#             */
-/*   Updated: 2023/11/29 12:04:28 by ade-beco         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:33:22 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,12 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-# define BUFFER_SIZE 1
-
-typedef struct s_list
-{
-	char			content;
-	struct s_list	*next;
-}					t_list;
+# define BUFFER_SIZE 100
 
 char	*get_next_line(int fd);
 
-t_list	ft_addback(t_list **stash, char content);
+char	*ft_strjoin(char const *s1, char const *s2);
+void	ft_putstr(char *s, unsigned int max_l);
+char	*ft_strdup(const char *s1);
 
 #endif

@@ -6,41 +6,66 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:41:30 by ade-beco          #+#    #+#             */
-/*   Updated: 2023/11/29 11:46:17 by ade-beco         ###   ########.fr       */
+/*   Updated: 2023/11/29 16:44:26 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static t_list	*ft_lstlast(t_list *lst)
+static size_t	ft_strlen(const char *s)
 {
-	while (lst)
-	{
-		if (!lst->next)
-			return (lst);
-		lst = lst->next;
-	}
-	return (lst);
+	unsigned int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
 }
 
-void	ft_addback(t_list **stash, char content)
+char	*ft_strdup(const char *s1)
 {
-	t_list	*last;
-	t_list	*new;
+	unsigned long	i;
+	char			*tab;
 
-	new = (t_list *)malloc(sizeof(*new));
-	if (!new)
+	i = -1;
+	tab = malloc(sizeof(char) * (ft_strlen(s1) + 1));
+	if (!tab)
 		return (NULL);
-	new->content = content;
-	new->next = NULL;
-	if (stash)
+	while (s1[++i] != '\0')
+		tab[i] = s1[i];
+	tab[i] = '\0';
+	return (tab);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	k;
+	char			*str;
+
+	i = 0;
+	j = 0;
+	k = 0;
+	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
+		return (NULL);
+	while (s1[j] != '\0')
+		str[i++] = s1[j++];
+	while (s2[k] != '\0')
+		str[i++] = s2[k++];
+	str[i] = '\0';
+	return (str);
+}
+
+void	ft_putstr(char *s, unsigned int max_l)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (s[i] != '\0' && i < max_l)
 	{
-		if (*stash)
-		{
-			last = ft_lstlast(*stash);
-			last->next = new;
-		}
-		else
-			*stash = new;
+		write(1, &s[i], 1);
+		i++;
 	}
 }
