@@ -6,7 +6,7 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:41:42 by ade-beco          #+#    #+#             */
-/*   Updated: 2023/11/29 17:33:22 by ade-beco         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:41:19 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-# define BUFFER_SIZE 100
+# define BUFFER_SIZE 10
 
 char	*get_next_line(int fd);
 
 char	*ft_strjoin(char const *s1, char const *s2);
-void	ft_putstr(char *s, unsigned int max_l);
-char	*ft_strdup(const char *s1);
+void	ft_putstr(char *s);
+size_t	ft_strlen(const char *s);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 #endif
