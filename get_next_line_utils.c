@@ -6,7 +6,7 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:41:30 by ade-beco          #+#    #+#             */
-/*   Updated: 2023/12/12 11:12:14 by ade-beco         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:26:28 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ size_t	ft_strlen(const char *s)
 {
 	unsigned int	i;
 
-	i = 0;
-	if (!s)
+	if (s == NULL || *s == '\0')
 		return (0);
+	i = 0;
 	while (s[i] != '\0')
 		i++;
 	return (i);
@@ -33,7 +33,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = 0;
 	j = 0;
 	if (!s)
-		return (0);
+		return (NULL);
 	if (start >= (unsigned int)(ft_strlen(s)))
 		str = (char *) malloc(1);
 	else if (len < ft_strlen(s) - start)
@@ -62,6 +62,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i = 0;
 	j = 0;
 	k = 0;
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return ((char *)s2);
+	if (!s2)
+		return ((char *)s1);
 	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str)
 		return (NULL);
