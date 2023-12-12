@@ -6,7 +6,7 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:41:30 by ade-beco          #+#    #+#             */
-/*   Updated: 2023/12/11 13:01:16 by ade-beco         ###   ########.fr       */
+/*   Updated: 2023/12/12 11:12:14 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,4 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		str[i++] = s2[k++];
 	str[i] = '\0';
 	return (str);
-}
-
-void	ft_putstr(char *s)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		write(1, &s[i], 1);
-		i++;
-	}
 }
