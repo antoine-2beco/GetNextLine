@@ -6,7 +6,7 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:41:30 by ade-beco          #+#    #+#             */
-/*   Updated: 2023/12/12 17:26:28 by ade-beco         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:08:23 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	unsigned int	k;
 	char			*str;
 
-	i = 0;
-	j = 0;
 	k = 0;
+	i = 0;
 	if (!s1 && !s2)
 		return (NULL);
 	if (!s1)
@@ -69,6 +68,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!s2)
 		return ((char *)s1);
 	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	j = 0;
 	if (!str)
 		return (NULL);
 	while (s1 && s1[j] != '\0')
