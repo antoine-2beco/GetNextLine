@@ -6,7 +6,7 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:41:42 by ade-beco          #+#    #+#             */
-/*   Updated: 2023/12/14 14:55:18 by ade-beco         ###   ########.fr       */
+/*   Updated: 2023/12/27 14:40:02 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-// # define BUFFER_SIZE 1
+//# define BUFFER_SIZE 1
+# define MAX_FD 1024 + 1
 
 char	*get_next_line(int fd);
 

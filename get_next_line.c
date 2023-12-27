@@ -5,89 +5,87 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/29 10:41:33 by ade-beco          #+#    #+#             */
-/*   Updated: 2023/12/14 16:19:20 by ade-beco         ###   ########.fr       */
+/*   Created: 2023/12/27 13:44:31 by ade-beco          #+#    #+#             */
+/*   Updated: 2023/12/27 14:39:49 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-#include <stdlib.h>
-
-static char	*ft_get_return(char **stash, int nli, int rdc)
-{
-	char	*ret;
-	int		i;
-	char	*old_stash;
-	int		old_stash_len;
-
-	if (rdc == 0 && nli == 0)
-		return (NULL);
-	old_stash = *stash;
-	old_stash_len = ft_strlen(old_stash);
-	i = (old_stash_len - (rdc - nli));
-	ret = ft_substr(old_stash, 0, i);
-	*stash = ft_substr(old_stash, i, old_stash_len);
-	return (ret);
-}
-
-static int	ft_check_nl(char *stash, int rdc)
+static int	check_line(char *stack)
 {
 	int	i;
 
 	i = 0;
-	while (i < rdc)
+	if (!stack)
+		return (-1);
+	while (stack[i] != '\0')
 	{
-		if (stash[i] == '\n')
+		if (stack[i] == '\n')
 			return (++i);
 		i++;
 	}
 	return (-1);
 }
 
+static char	*return_line(char **stack)
+{
+	int		i;
+	char	*old_stack;
+	char	*ret;
+	int		old_stack_len;
+
+	i = check_line(*stack);
+	old_stack = *stack;
+	old_stack_len = ft_strlen(old_stack);
+	ret = ft_substr(old_stack, 0, i);
+	*stack = ft_substr(old_stack, i, old_stack_len);
+	free(old_stack);
+	old_stack = NULL;
+	return (ret);
+}
+
+static int	read_file(int fd, char **stack, char *heap)
+{
+	char	*temp_stack;
+	int		ret;
+
+	while (check_line(*stack) == -1)
+	{
+		ret = read(fd, heap, BUFFER_SIZE);
+		if (ret == -1)
+			return (-1);
+		heap[ret] = '\0';
+		if (*stack)
+		{
+			temp_stack = *stack;
+			*stack = ft_strjoin(temp_stack, heap);
+			free(temp_stack);
+			temp_stack = NULL;
+		}
+		else
+			*stack = ft_substr(heap, 0, ft_strlen(heap));
+		if (ret < BUFFER_SIZE)
+			break ;
+		//printf("%s", *stack);
+	}
+	return (1);
+}
+
 char	*get_next_line(int fd)
 {
-	static char	*stash;
-	char		*buf;
-	int			rdc;
-	int			nli;
+	static char	*stack;
+	char		heap[BUFFER_SIZE + 1];
+	int			ret;
 
-	rdc = 0;
-	if (stash)
-	{
-		nli = ft_check_nl(stash, ft_strlen(stash));
-		if (nli != -1)
-		{
-			ret = ft_get_return(&stash, nli, ft_strlen(stash));
-			rdc = -1;
-		}
-	}
-	while (rdc != -1)
-	{
-		rdc = read(fd, buf, BUFFER_SIZE);
-		// one char bug et leaks
-		if (rdc == -1)
-			return (NULL);
-		if (rdc != 0)
-		{
-			stash = ft_strjoin(stash, ft_substr(buf, 0, rdc));
-			nli = ft_check_nl(buf, rdc);
-			if (nli != -1)
-			{
-				ret = ft_get_return(&stash, nli, rdc);
-				break ;
-			}
-		}
-		else if (rdc == 0)
-		{
-			ret = ft_get_return(&stash, ft_strlen(stash), rdc);
-			break ;
-		}
-	}
-	if (ret == NULL)
-	{
-		free (stash);
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	}
-	return (ret);
+	if (stack)
+		if (check_line(stack))
+			return_line(&stack);
+	ret = read_file(fd, &stack, heap);
+	if (!ret)
+		return (NULL);
+	else
+		return (return_line(&stack));
 }
