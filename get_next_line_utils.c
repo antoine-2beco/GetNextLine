@@ -6,7 +6,7 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:41:30 by ade-beco          #+#    #+#             */
-/*   Updated: 2023/12/27 18:37:46 by ade-beco         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:38:34 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i = 0;
 	if (!s1 && !s2)
 		return (NULL);
-	// if (!s1)
-	// 	return ((char *)s2);
-	// if (!s2)
-	// 	return ((char *)s1);
 	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	j = 0;
 	if (!str)
