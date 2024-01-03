@@ -6,7 +6,7 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 13:44:31 by ade-beco          #+#    #+#             */
-/*   Updated: 2024/01/02 19:12:50 by ade-beco         ###   ########.fr       */
+/*   Updated: 2024/01/03 17:23:37 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,8 @@ static char	*return_line(char **stack)
 		old_stack_len = ft_strlen(old_stack);
 		ret = ft_substr(old_stack, 0, i);
 		*stack = ft_substr(old_stack, i, old_stack_len);
-		// if (*stack == NULL)
-		// 	ret = NULL;
 		free (old_stack);
 		old_stack = NULL;
-	}
-	if (ft_strlen(*stack) == 0)
-	{
-		free (*stack);
-		*stack = NULL;
 	}
 	return (ret);
 }
@@ -79,7 +72,7 @@ static int	read_file(int fd, char **stack, char *heap)
 			*stack = ft_substr(heap, 0, ft_strlen(heap));
 		if (ret < BUFFER_SIZE)
 			return (0);
-		if (check_line(*stack) != -1 || !*stack)
+		if (check_line(*stack) != -1)
 			break ;
 	}
 	return (1);
@@ -89,20 +82,27 @@ char	*get_next_line(int fd)
 {
 	static char	*stack;
 	char		heap[BUFFER_SIZE + 1];
-	int			ret;
+	char		*ret;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!stack)
 		if (check_line(stack))
 			return_line(&stack);
-	ret = read_file(fd, &stack, heap);
-	if (ret == -1)
+	if (read_file(fd, &stack, heap) == -1)
 	{
 		free (stack);
 		stack = NULL;
 		return (NULL);
 	}
 	else
-		return (return_line(&stack));
+	{
+		ret = return_line(&stack);
+		if (ft_strlen(stack) == 0)
+		{
+			free (stack);
+			stack = NULL;
+		}
+		return (ret);
+	}
 }

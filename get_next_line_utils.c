@@ -6,7 +6,7 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:41:30 by ade-beco          #+#    #+#             */
-/*   Updated: 2024/01/02 18:38:34 by ade-beco         ###   ########.fr       */
+/*   Updated: 2024/01/03 17:25:21 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,19 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	j;
 	char	*str;
 
-	i = 0;
 	j = 0;
 	if (!s)
 		return (NULL);
 	if (start >= (unsigned int)(ft_strlen(s)))
-		str = (char *) malloc(1);
+		i = 1;
 	else if (len < ft_strlen(s) - start)
-		str = (char *) malloc(len + 1);
+		i = len + 1;
 	else
-		str = (char *) malloc((ft_strlen(s) - start) + 1);
+		i = (ft_strlen(s) - start) + 1;
+	str = (char *)malloc(i);
 	if (!str)
 		return (NULL);
+	i = 0;
 	while (s[i])
 	{
 		if (i >= start && j < len)
@@ -64,9 +65,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!s1 && !s2)
 		return (NULL);
 	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	j = 0;
 	if (!str)
 		return (NULL);
+	j = 0;
 	while (s1 && s1[j] != '\0')
 		str[i++] = s1[j++];
 	while (s2 && s2[k] != '\0')
