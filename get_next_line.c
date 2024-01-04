@@ -6,20 +6,19 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 13:44:31 by ade-beco          #+#    #+#             */
-/*   Updated: 2024/01/03 17:23:37 by ade-beco         ###   ########.fr       */
+/*   Updated: 2024/01/04 15:03:43 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+// -1 == no /n in heap || int == index of /n
 static int	check_line(char *stack)
 {
 	int	i;
 
 	i = 0;
-	if (!stack || stack == NULL)
-		return (-1);
-	while (stack[i] != '\0')
+	while (stack && stack[i] != '\0')
 	{
 		if (stack[i] == '\n')
 			return (++i);
@@ -28,7 +27,7 @@ static int	check_line(char *stack)
 	return (-1);
 }
 
-static char	*return_line(char **stack)
+static char	*get_line(char **stack)
 {
 	int		i;
 	char	*old_stack;
@@ -50,6 +49,7 @@ static char	*return_line(char **stack)
 	return (ret);
 }
 
+// -1 == read error || 0 == no more to read || 1 == line readed
 static int	read_file(int fd, char **stack, char *heap)
 {
 	char	*temp_stack;
@@ -88,7 +88,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (!stack)
 		if (check_line(stack))
-			return_line(&stack);
+			get_line(&stack);
 	if (read_file(fd, &stack, heap) == -1)
 	{
 		free (stack);
@@ -97,10 +97,10 @@ char	*get_next_line(int fd)
 	}
 	else
 	{
-		ret = return_line(&stack);
-		if (ft_strlen(stack) == 0)
+		ret = get_line(&stack);
+		if (ft_strlen(stack) == 0 || !ret)
 		{
-			free (stack);
+			free(stack);
 			stack = NULL;
 		}
 		return (ret);

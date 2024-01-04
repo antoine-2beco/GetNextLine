@@ -6,7 +6,7 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:41:30 by ade-beco          #+#    #+#             */
-/*   Updated: 2024/01/03 17:25:21 by ade-beco         ###   ########.fr       */
+/*   Updated: 2024/01/04 15:00:27 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,18 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	j;
 	char	*str;
 
+	i = 0;
 	j = 0;
 	if (!s)
 		return (NULL);
 	if (start >= (unsigned int)(ft_strlen(s)))
-		i = 1;
+		str = (char *) malloc(1);
 	else if (len < ft_strlen(s) - start)
-		i = len + 1;
+		str = (char *) malloc(len + 1);
 	else
-		i = (ft_strlen(s) - start) + 1;
-	str = (char *)malloc(i);
+		str = (char *) malloc((ft_strlen(s) - start) + 1);
 	if (!str)
 		return (NULL);
-	i = 0;
 	while (s[i])
 	{
 		if (i >= start && j < len)
