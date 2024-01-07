@@ -6,7 +6,7 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 13:44:31 by ade-beco          #+#    #+#             */
-/*   Updated: 2024/01/04 15:03:43 by ade-beco         ###   ########.fr       */
+/*   Updated: 2024/01/07 14:44:31 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*get_next_line(int fd)
 	char		heap[BUFFER_SIZE + 1];
 	char		*ret;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > 2147483647)
 		return (NULL);
 	if (!stack)
 		if (check_line(stack))
