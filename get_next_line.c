@@ -6,7 +6,7 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 13:44:31 by ade-beco          #+#    #+#             */
-/*   Updated: 2024/01/07 14:44:31 by ade-beco         ###   ########.fr       */
+/*   Updated: 2024/01/08 15:33:10 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,20 +80,18 @@ static int	read_file(int fd, char **stack, char *heap)
 
 char	*get_next_line(int fd)
 {
+	char		*heap;
 	static char	*stack;
-	char		heap[BUFFER_SIZE + 1];
 	char		*ret;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > 2147483647)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= 2147483647)
 		return (NULL);
-	if (!stack)
-		if (check_line(stack))
-			get_line(&stack);
-	if (read_file(fd, &stack, heap) == -1)
+	heap = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!heap || read_file(fd, &stack, heap) == -1)
 	{
 		free (stack);
 		stack = NULL;
-		return (NULL);
+		ret = NULL;
 	}
 	else
 	{
@@ -103,6 +101,8 @@ char	*get_next_line(int fd)
 			free(stack);
 			stack = NULL;
 		}
-		return (ret);
 	}
+	free(heap);
+	heap = NULL;
+	return (ret);
 }
