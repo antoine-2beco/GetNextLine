@@ -6,11 +6,11 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:41:30 by ade-beco          #+#    #+#             */
-/*   Updated: 2024/01/08 15:43:26 by ade-beco         ###   ########.fr       */
+/*   Updated: 2024/01/08 19:07:07 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {

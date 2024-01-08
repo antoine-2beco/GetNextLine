@@ -6,11 +6,11 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 13:44:31 by ade-beco          #+#    #+#             */
-/*   Updated: 2024/01/08 15:50:58 by ade-beco         ###   ########.fr       */
+/*   Updated: 2024/01/08 19:07:03 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 // -1 == no /n in heap || int == index of /n
 static int	check_line(char *stack)
