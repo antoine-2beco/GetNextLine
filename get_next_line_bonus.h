@@ -6,7 +6,7 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:41:42 by ade-beco          #+#    #+#             */
-/*   Updated: 2024/01/08 15:49:48 by ade-beco         ###   ########.fr       */
+/*   Updated: 2024/01/09 23:09:59 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <limits.h>
 
 # ifndef BUFFER_SIZE  
 #  define BUFFER_SIZE 10

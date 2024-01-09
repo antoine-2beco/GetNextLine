@@ -6,7 +6,7 @@
 /*   By: ade-beco <ade-beco@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 13:44:31 by ade-beco          #+#    #+#             */
-/*   Updated: 2024/01/08 15:33:10 by ade-beco         ###   ########.fr       */
+/*   Updated: 2024/01/09 23:12:07 by ade-beco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*get_next_line(int fd)
 	static char	*stack;
 	char		*ret;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= 2147483647)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT32_MAX)
 		return (NULL);
 	heap = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!heap || read_file(fd, &stack, heap) == -1)
